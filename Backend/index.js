@@ -5,12 +5,9 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const { parseISO, format, formatISO } = require("date-fns");
 
-const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "keyboard",
-  database: "travelapp",
-});
+require("dotenv").config();
+
+const db = mysql.createConnection(process.env.DATABASE_URL);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
