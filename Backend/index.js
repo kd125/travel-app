@@ -16,6 +16,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("This API is running!!!");
+});
+
 app.get("/api/get", (req, res) => {
   const sqlSelect = "SELECT * FROM travelapp.travel_app;";
   db.query(sqlSelect, (err, result) => {
