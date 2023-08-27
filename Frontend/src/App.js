@@ -12,6 +12,7 @@ import Navigation from "./components/Navigation";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import AddTrip from "./components/AddTrip";
 import { Button } from "@mui/material";
+import HomePage from "./components/Homepage";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -25,7 +26,8 @@ function App() {
       <ClerkProvider publishableKey={clerkPubKey}>
         <SignedIn>
           <Navigation />
-          <AddTrip />
+          {/* <AddTrip /> */}
+          <HomePage />
         </SignedIn>
         <SignedOut>
           <h1>Hello World! Welcome to my app!</h1>

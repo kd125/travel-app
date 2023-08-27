@@ -12,22 +12,26 @@ const Navigation = () => {
   };
 
   return (
-    <AppBar position="relative">
-      <Toolbar>
-        <IconButton color="inherit">
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" style={{ flexGrow: "1" }}>
-          Small Business Site
+    <AppBar
+      position="relative"
+      sx={{
+        backgroundColor: "rgba(0, 76, 114, 0.3)", // Translucent blue background color
+        backdropFilter: "blur(5px)", // Apply a blur effect to the background
+      }}
+    >
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "space-between", // Spread items across the width
+        }}
+      >
+        <Typography variant="h6" color="inherit" noWrap>
+          Trips App
         </Typography>
-        <ul className="nav-list">
-          <li className="nav-list-item">
-            <Link to="/Listings">Listings</Link>
-          </li>
-          <Button color="inherit" onClick={handleSignOut}>
-            Sign Out
-          </Button>
-        </ul>
+
+        <Button color="inherit" onClick={handleSignOut}>
+          Sign Out
+        </Button>
       </Toolbar>
     </AppBar>
   );

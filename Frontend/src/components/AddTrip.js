@@ -7,21 +7,31 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { render } from "@testing-library/react";
+import Axios from "axios";
+import { isValid } from "date-fns";
+import dayjs from "dayjs";
+import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
+import { pickersLayoutClasses } from "@mui/x-date-pickers/PickersLayout";
 
 class AddTrip extends Component {
   state = {
     open: false,
-    Date: "",
-    TripName: "",
-    Activity: "",
-    Location: "",
-    Cost: "",
-    Comments: "",
+    id: 0,
+    date: null,
+    tripName: "",
+    activity: "",
+    location: "",
+    cost: "",
+    comments: "",
+  };
+
+  isDateValid = (dateString) => {
+    return dayjs(dateString).isValid();
   };
 
   handleToggleDialog = () => {
@@ -35,9 +45,37 @@ class AddTrip extends Component {
     this.setState({ [id]: value });
   };
 
+  handleDateChange = (date) => {
+    this.setState({ Date: new Date(date) }); // Convert to standard JS Date object
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission logic here
+    const { id, TripName, Date, Location, Activity, Cost, Comments } =
+      this.state;
+    if (!this.isDateValid(Date)) {
+      alert("Invalid date format! Please enter a valid date.");
+      return;
+    }
+    Axios.post("http://localhost:3001/api/insert", {
+      trip_name: TripName,
+      date: Date,
+      location: Location,
+      activity: Activity,
+      cost: Cost,
+      comments: Comments,
+    }).then(() => {
+      console.log("Successful insert");
+      this.setState(() => ({
+        open: false,
+        Date: "",
+        TripName: "",
+        Activity: "",
+        Location: "",
+        Cost: "",
+        Comments: "",
+      }));
+    });
   };
 
   renderForm = () => {
@@ -52,18 +90,21 @@ class AddTrip extends Component {
           width: "350px",
         }}
       >
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={["DatePicker"]}>
+            <DatePicker
+              label="Date"
+              value={Date}
+              onChange={this.handleDateChange}
+            />
+          </DemoContainer>
+        </LocalizationProvider>
         <TextField
-          id="Trip-Name"
+          id="TripName"
           placeholder="Trip Name"
           value={TripName}
           onChange={this.handleTextChange}
-          required
         />
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={["DatePicker"]}>
-            <DatePicker label="Date" value={Date} />
-          </DemoContainer>
-        </LocalizationProvider>
         <TextField
           id="Activity"
           placeholder="Activity"
@@ -106,13 +147,12 @@ class AddTrip extends Component {
     return (
       <Fragment>
         <div style={{ textAlign: "center" }}>
-          <h1>Add Trip:</h1>
           <Button
             variant="contained"
             className="className"
             onClick={this.handleToggleDialog}
           >
-            Add Trip
+            New Trip
           </Button>
         </div>
         {open && this.renderForm()}
