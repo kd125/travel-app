@@ -65,19 +65,21 @@ function HomePage() {
   }, [dataFetched]);
 
   const getAllCards = () => {
-    Axios.get("http://localhost:3001/api/get").then((response) => {
-      const data = response.data.map((item) => ({
-        ...item,
-        date: formatDate(item.date),
-      }));
+    Axios.get(`${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/get`).then(
+      (response) => {
+        const data = response.data.map((item) => ({
+          ...item,
+          date: formatDate(item.date),
+        }));
 
-      setDisplayCard(data);
-    });
+        setDisplayCard(data);
+      }
+    );
   };
 
   const getCardData = (tripId) => {
     console.log("tripId", tripId);
-    Axios.get(`http://localhost:3001/api/get/${tripId}`)
+    Axios.get(`${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/get/${tripId}`)
       .then((response) => {
         if (response.data && response.data.length > 0) {
           const { trip_name, date, activity, location, cost, comments } =

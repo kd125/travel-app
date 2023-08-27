@@ -57,7 +57,7 @@ class AddTrip extends Component {
       alert("Invalid date format! Please enter a valid date.");
       return;
     }
-    Axios.post("http://localhost:3001/api/insert", {
+    Axios.post(`${process.env.REACT_APP_BACKEND_API_BASE_URL}/api/insert`, {
       trip_name: TripName,
       date: Date,
       location: Location,
