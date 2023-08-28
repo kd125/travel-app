@@ -30,8 +30,9 @@ function App() {
           <HomePage />
         </SignedIn>
         <SignedOut>
-          <h1>Hello World! Welcome to my app!</h1>
-          <SignIn />
+          <div className="centered-container">
+            <SignIn />
+          </div>
         </SignedOut>
       </ClerkProvider>
     </BrowserRouter>

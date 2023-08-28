@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, TextField } from "@mui/material";
+import "../App.css";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -96,7 +97,7 @@ const TripForm = ({ tripInfo, setShowModal }) => {
   const { tripName, date, activity, location, cost, comments } = formState;
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <div className="form-row">
         <TextField
           id="tripName"
           label="Trip Name"
@@ -106,14 +107,8 @@ const TripForm = ({ tripInfo, setShowModal }) => {
           sx={{ mb: 2 }}
           onChange={handleInputChange}
         />
-        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            id="date"
-            label="Date"
-            value={date}
-            onChange={handleDateChange}
-          />
-        </LocalizationProvider> */}
+      </div>
+      <div className="form-row">
         <input
           type="date"
           id="date"
@@ -122,13 +117,8 @@ const TripForm = ({ tripInfo, setShowModal }) => {
           min={Date.now()}
           onChange={handleInputChange}
         />
-        <TextField
-          id="activity"
-          placeholder="Activity"
-          value={activity}
-          required
-          onChange={handleInputChange}
-        />
+      </div>
+      <div className="form-row">
         <TextField
           id="location"
           placeholder="Location"
@@ -136,6 +126,17 @@ const TripForm = ({ tripInfo, setShowModal }) => {
           required
           onChange={handleInputChange}
         />
+      </div>
+      <div className="form-row">
+        <TextField
+          id="activity"
+          placeholder="Activity"
+          value={activity}
+          required
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="form-row">
         <TextField
           id="cost"
           placeholder="Cost"
@@ -144,11 +145,15 @@ const TripForm = ({ tripInfo, setShowModal }) => {
           type="number"
           onChange={handleInputChange}
         />
+      </div>
+      <div className="form-row">
         <TextField
           id="comments"
           placeholder="Comments"
           value={comments}
           required
+          multiline
+          rows={4}
           onChange={handleInputChange}
         />
       </div>
