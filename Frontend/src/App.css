@@ -50,3 +50,7 @@
   gap: 16px; /* Adjust the spacing between rows */
   padding: 10px;
 }
+
+.newtrip-button {
+  margin-top: 20px;
+}

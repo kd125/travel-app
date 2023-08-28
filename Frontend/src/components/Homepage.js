@@ -162,6 +162,7 @@ function HomePage() {
             variant="contained"
             color="primary"
             onClick={handleNewTripClick}
+            className="newtrip-button"
           >
             New Trip
           </Button>
@@ -216,6 +217,17 @@ function HomePage() {
             </Button>
           </Stack>
           <IconButton aria-label="center back" onClick={clearRoute} />
+
+          {distance && duration && (
+            <Box mt={2}>
+              <Typography variant="subtitle1">
+                Calculated Distance: {distance}
+              </Typography>
+              <Typography variant="subtitle1">
+                Calculated Duration: {duration}
+              </Typography>
+            </Box>
+          )}
 
           <GoogleMap
             zoom={10}
