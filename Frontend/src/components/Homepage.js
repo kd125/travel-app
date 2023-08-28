@@ -158,14 +158,22 @@ function HomePage() {
           alignItems="center"
           mb={4}
         >
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleNewTripClick}
-            className="newtrip-button"
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            mb={4}
+            mt={2}
           >
-            New Trip
-          </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleNewTripClick}
+              className="newtrip-button"
+            >
+              New Trip
+            </Button>
+          </Box>
         </Box>
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
